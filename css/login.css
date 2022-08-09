@@ -1,0 +1,74 @@
+ /* ส่วนของ loginform.php*/
+.bg-gradient-white {
+    background-color: #e1d9d2;
+    background-image: linear-gradient(180deg, #11101d 10%, #000a7d 100%);
+    background-size: cover;
+}
+
+.body{
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+.text-gray-900 {
+    color: #000000 !important;
+  }
+
+.d-none {
+    display: none !important;
+  }
+
+.d-lg-block {
+    display: block !important;
+  }
+
+.loginbg {
+    background-image: url("image/bekery.jpg");
+    background-size: 90% 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.btn-orange {
+    color: rgb(255, 255, 255);
+    background-color: #000a7d;
+    border-color: #ffffff;
+}
+
+.btn-orange:hover {
+    color: #fff;
+    background-color: #000;
+    border-color: #ffffff;
+  }
+  
+  .btn-orange:focus, .btn-orange.focus {
+    color: rgb(255, 40, 40);
+    background-color: #ccff00;
+    border-color: #6ed426;
+    box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
+  }
+  
+  .btn-orange.disabled, .btn-orange:disabled {
+    color: #fff;
+    background-color: #4e73df;
+    border-color: #4e73df;
+  }
+  
+  .btn-orange:not(:disabled):not(.disabled):active, .btn-orange:not(:disabled):not(.disabled).active,
+  .show > .btn-orange.dropdown-toggle {
+    color: #fff;
+    background-color: #2653d4;
+    border-color: #244ec9;
+  }
+  
+  .btn-orange:not(:disabled):not(.disabled):active:focus, .btn-orange:not(:disabled):not(.disabled).active:focus,
+  .show > .btn-orange.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
+  }
+
+ /* ส่วนของ index.php*/
+ 
