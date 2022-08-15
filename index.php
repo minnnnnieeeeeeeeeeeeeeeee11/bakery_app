@@ -123,8 +123,6 @@
       <i class='bx bx-menu' ></i>
     </div>
     <img src="image/bekery.jpg" alt="profileImg" width="1175" height="500">
-  
-
   </section>
 
 
