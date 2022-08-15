@@ -7,14 +7,40 @@
 
     if (isset($_GET['delete'])) {
         $delete_id = $_GET['delete'];
-        $stmt = $conn -> query("UPDATE product set P_status='0' WHERE id = $delete_id");
+        $stmt = $conn -> query("DELETE FROM product WHERE id = $delete_id");
         $stmt -> execute();
 
         if ($stmt) {
             $_SESSION['success'] = "ลบข้อมูลเรียบร้อยแล้ว";
-            header("refresh:2; url=../material/index.php");
-        } 
-  }
+            echo "<script>
+                $(document).ready(function () {
+                    Swal.fire ({
+                        icon: 'success',
+                        title: 'สำเร็จ',
+                        text: 'ลบข้อมูลเรียบร้อยแล้ว',
+                        timer: 2000,
+                        showConfirmButton: true
+                    });
+                });
+            </script>";
+            header("refresh:2; url=../product/restore_product.php");
+        } else {
+            $_SESSION['error'] = "ลบข้อมูลไม่สำเร็จ";
+            echo "<script>
+                $(document).ready(function () {
+                    Swal.fire ({
+                        icon: error',
+                        title: 'เกิดข้อผิดพลาด',
+                        text: 'ลบข้อมูลไม่สำเร็จ',
+                        timer: 2000,
+                        showConfirmButton: true
+                    });
+                });
+            </script>";
+            header("refresh:2; url=../product/restore_product.php");
+        }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -32,27 +58,10 @@
 <body>
    
     <div class="container">
-        <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert"> ข้อมูลสินค้า</div>
+        <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">คืนค่าข้อมูลสินค้า</div>
         <hr>
-        <a href="add_product.php" class="btn btn-success mb-4"><i class="bi bi-plus-circle-fill"></i> เพิ่มสินค้า</a>
-        <a href="restore_product.php" class="btn btn-outline-info mb-4"><i class="bi bi-trash3"></i> คืนค่าข้อมูล</a>
-        <?php if (isset($_SESSION['success'])) { ?>
-            <div class="alert alert-success">
-                <?php 
-                    echo $_SESSION['success']; 
-                    unset($_SESSION['success']);
-                ?>
-            </div>
-        <?php } ?>
-        <?php if (isset($_SESSION['error'])) { ?>
-            <div class="alert alert-danger">
-                <?php 
-                    echo $_SESSION['error']; 
-                    unset($_SESSION['error']);
-                ?>
-            </div>
-        <?php } ?>
-
+        <a href="index.php" class="btn btn-primary mb-4">กลับ</a>
+        
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -68,7 +77,7 @@
             </thead>
             <tbody>
                 <?php 
-                    $stmt = $conn -> query("SELECT * FROM product WHERE P_status='1' ");
+                    $stmt = $conn -> query("SELECT * FROM product WHERE P_status='0' ");
                     $stmt -> execute();
                     $product = $stmt -> fetchAll();
 
@@ -86,9 +95,8 @@
                     <td><?php echo $product['P_unit_pro']; ?></td>
                     <td><?php echo $product['P_number']; ?></td>
                     <td>
-                        <a href="edit.php?id=<?php echo $product['id']; ?>" class="btn btn-warning">แก้ไข</a>
                         <a data-id="<?php echo $product['id']; ?>" href=" ?delete=<?php echo $product['id']; ?>"
-                        class="btn btn-danger delete-btn">ลบ</a>
+                        class="btn btn-danger">ลบ</a>
                     </td>
                 </tr>
                 <?php } 
@@ -105,52 +113,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
-    <script>
-    $('.delete-btn').click(function(e) {
-        var materialID = $(this).data('id');
-        e.preventDefault();
-        deleteConfirm(materialID);
-    })
-
-    function deleteConfirm(materialID) {
-        Swal.fire({
-            title: 'แจ้งเตือน',
-            text: 'ต้องการลบรายการนี้หรือไม่',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#bebebe',
-            confirmButtonText: "ตกลง",
-            cancelButtonText: "ยกเลิก",
-            preConfirm: function() {
-                return new Promise(function(resolve) {
-                    $.ajax({
-                            url: 'index.php',
-                            type: 'GET',
-                            data: 'delete=' + materialID
-                        })
-                        .done(function() {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'สำเร็จ',
-                                text: 'ลบข้อมูลสำเร็จแล้ว',
-                                timer: '2000'
-                            }).then(() => {
-                                document.location.href =
-                                    'index.php';
-                            })
-                        })
-                        .fail(function() {
-                            Swal.fire('เกิดข้อผิดพลาด ',
-                                'โปรดลองใหม่อีกครั้ง', 'error'
-                            );
-                            window.location.reload();
-                        })
-                })
-            }
-        })
-    }
-    </script>
+    
         
 </body>
 </html>

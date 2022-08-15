@@ -7,13 +7,38 @@
 
     if (isset($_GET['delete'])) {
         $delete_id = $_GET['delete'];
-        $stmt = $conn -> query("UPDATE material set M_status='0' WHERE id = $delete_id");
+        $stmt = $conn -> query("DELETE FROM material WHERE id = $delete_id");
         $stmt -> execute();
 
         if ($stmt) {
             $_SESSION['success'] = "ลบข้อมูลเรียบร้อยแล้ว";
-            header("refresh:2; url=../material/index.php");
-        } 
+            echo "<script>
+                $(document).ready(function () {
+                    Swal.fire ({
+                        icon: 'success',
+                        title: 'สำเร็จ',
+                        text: 'ลบข้อมูลเรียบร้อยแล้ว',
+                        timer: 2000,
+                        showConfirmButton: true
+                    });
+                });
+            </script>";
+            header("refresh:2; url=../material/restore_material.php");
+        } else {
+            $_SESSION['error'] = "ลบข้อมูลไม่สำเร็จ";
+            echo "<script>
+                $(document).ready(function () {
+                    Swal.fire ({
+                        icon: error',
+                        title: 'เกิดข้อผิดพลาด',
+                        text: 'ลบข้อมูลไม่สำเร็จ',
+                        timer: 2000,
+                        showConfirmButton: true
+                    });
+                });
+            </script>";
+            header("refresh:2; url=../material/restore_material.php");
+        }
   }
 
 ?>
@@ -53,7 +78,7 @@
             <tbody>
                 <?php 
                     
-                    $stmt = $conn -> query("SELECT * FROM material WHERE M_status='1' ");
+                    $stmt = $conn -> query("SELECT * FROM material WHERE M_status='0' ");
                     $stmt -> execute();
                     $material = $stmt -> fetchAll();
 
@@ -70,9 +95,8 @@
                     <td><?php echo $material['M_unit_use']; ?></td>
                     <td><?php echo $material['M_number']; ?></td>
                     <td>
-                        <a href="edit.php?id=<?php echo $material['id']; ?>" class="btn btn-warning">แก้ไข</a>
                         <a data-id="<?php echo $material['id']; ?>" href=" ?delete=<?php echo $material['id']; ?>"
-                            class="btn btn-danger delete-btn">ลบ</a>
+                        class="btn btn-danger">ลบ</a>
                     </td>
                     <!-- <td>
                         <a href="" class="btn btn-warning">แก้ไข</a>
@@ -90,52 +114,6 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
-    <script>
-    $('.delete-btn').click(function(e) {
-        var materialID = $(this).data('id');
-        e.preventDefault();
-        deleteConfirm(materialID);
-    })
-
-    function deleteConfirm(materialID) {
-        Swal.fire({
-            title: 'แจ้งเตือน',
-            text: 'ต้องการลบรายการนี้หรือไม่',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#bebebe',
-            confirmButtonText: "ตกลง",
-            cancelButtonText: "ยกเลิก",
-            preConfirm: function() {
-                return new Promise(function(resolve) {
-                    $.ajax({
-                            url: 'index.php',
-                            type: 'GET',
-                            data: 'delete=' + materialID
-                        })
-                        .done(function() {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'สำเร็จ',
-                                text: 'ลบข้อมูลสำเร็จแล้ว',
-                                timer: '2000'
-                            }).then(() => {
-                                document.location.href =
-                                    'index.php';
-                            })
-                        })
-                        .fail(function() {
-                            Swal.fire('เกิดข้อผิดพลาด ',
-                                'โปรดลองใหม่อีกครั้ง', 'error'
-                            );
-                            window.location.reload();
-                        })
-                })
-            }
-        })
-    }
-    </script>
 </body>
 
 </html>
