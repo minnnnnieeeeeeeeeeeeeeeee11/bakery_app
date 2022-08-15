@@ -11,7 +11,7 @@
         $stmt -> execute();
 
         if ($stmt) {
-            $_SESSION['success'] = "แก้ไขข้อมูลเรียบร้อยแล้ว";
+            $_SESSION['success'] = "ลบข้อมูลเรียบร้อยแล้ว";
             header("refresh:2; url=../material/index.php");
         } 
   }
@@ -57,7 +57,7 @@
                     $material = $stmt -> fetchAll();
 
                     if (!$material) {
-                        echo "<p><td colspan='6' class='text-center'>ไม่มีข้อมูล</td></p>";
+                        echo "<p><td colspan='8' class='text-center'>ไม่มีข้อมูล</td></p>";
                     } else {
                     foreach($material as $material)  {  
                 ?>

@@ -26,7 +26,7 @@
             <div class="row py-2">
                 
                 <div class="col">
-                    <input readonly type="text" value="<?= $data['id']; ?>" name="id" class="form-control" required>
+                    <input hidden type="text" value="<?= $data['id']; ?>" name="id" class="form-control" required>
                     <label>รหัสวัตถุดิบ</label>
                     <input readonly type="text" value="<?= $data['M_ID']; ?>" name="M_ID" class="form-control" placeholder="ป้อนรหัสวัตถุดิบ" maxlength="4">
                 </div>

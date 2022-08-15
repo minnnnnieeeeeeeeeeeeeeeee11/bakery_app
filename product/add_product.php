@@ -13,7 +13,7 @@
 <body>
     <div class="container my-5">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">เพิ่มข้อมูลสินค้า</div>
-        <form action="insert_product.php method="POST" enctype="multipart/form-data" >
+        <form action="insert_product.php" method="POST" enctype="multipart/form-data" >
             <div class="row">
                 <div class="col">
                    <label>รหัสสินค้า</label>
@@ -29,7 +29,7 @@
             <div>
                 <label>รูปภาพ</label>
                 <input type="file" name="P_image" class="form-control" id="imgInput" required>
-                <img id="previewImg" alt="">
+                <img id="previewImg" alt=""  width="390px" >
             </div>
             <div >
                 <label>ราคา</label>
@@ -52,5 +52,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <script>
+            let imgInput = document.getElementById('imgInput');    
+            let previewImg = document.getElementById('previewImg');
+            
+            imgInput.onchange = evt => {
+                const [file] = imgInput.files;
+                if (file) {
+                    previewImg.src = URL.createObjectURL(file);
+                }
+            }
+        </script>
 </body>
 </html>

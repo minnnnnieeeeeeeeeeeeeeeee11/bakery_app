@@ -30,7 +30,7 @@
                         icon: 'success',
                         title: 'สำเร็จ',
                         text: 'เพิ่มข้อมูลเรียบร้อยแล้ว',
-                        timer: 3000,
+                        timer: 2000,
                         showConfirmButton: true
                     });
                 });
@@ -44,7 +44,7 @@
                         icon: error',
                         title: 'เกิดข้อผิดพลาด',
                         text: 'เพิ่มข้อมูลไม่สำเร็จ',
-                        timer: 3000,
+                        timer: 2000,
                         showConfirmButton: true
                     });
                 });
