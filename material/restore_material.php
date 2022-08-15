@@ -41,6 +41,42 @@
         }
   }
 
+  if (isset($_GET['restore'])) {
+    $delete_id = $_GET['restore'];
+    $stmt = $conn -> query("UPDATE material set M_status='1' WHERE id = $delete_id");
+    $stmt -> execute();
+
+    if ($stmt) {
+        $_SESSION['success'] = "คืนค่าข้อมูลเรียบร้อยแล้ว";
+        echo "<script>
+            $(document).ready(function () {
+                Swal.fire ({
+                    icon: 'success',
+                    title: 'สำเร็จ',
+                    text: 'คืนค่ข้อมูลเรียบร้อยแล้ว',
+                    timer: 2000,
+                    showConfirmButton: true
+                });
+            });
+        </script>";
+        header("refresh:2; url=../material/restore_material.php");
+    } else {
+        $_SESSION['error'] = "คืนค่าข้อมูลไม่สำเร็จ";
+        echo "<script>
+            $(document).ready(function () {
+                Swal.fire ({
+                    icon: error',
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'คืนค่าข้อมูลไม่สำเร็จ',
+                    timer: 2000,
+                    showConfirmButton: true
+                });
+            });
+        </script>";
+        header("refresh:2; url=../material/restore_material.php");
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +97,7 @@
     <div class="container">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert"> ข้อมูลวัตถุดิบ</div>
         <hr>
-        <a href="add_material.php" class="btn btn-success mb-4"><i class="bi bi-plus-circle-fill"></i> เพิ่มวัตถุดิบ</a>
+        <a href="index.php" class="btn btn-danger mb-4">กลับ</a>
         <a href="restore_material.php" class="btn btn-outline-info mb-4"><i class="bi bi-trash3"></i> คืนค่าข้อมูล</a>
         <table class="table table-striped table-hover">
             <thead>
@@ -95,6 +131,8 @@
                     <td><?php echo $material['M_unit_use']; ?></td>
                     <td><?php echo $material['M_number']; ?></td>
                     <td>
+                        <a data-id="<?php echo $material['id']; ?>" href=" ?restore=<?php echo $material['id']; ?>"
+                        class="btn btn-primary">คืนค่า</a>
                         <a data-id="<?php echo $material['id']; ?>" href=" ?delete=<?php echo $material['id']; ?>"
                         class="btn btn-danger">ลบ</a>
                     </td>
