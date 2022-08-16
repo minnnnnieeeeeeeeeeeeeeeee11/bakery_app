@@ -39,11 +39,24 @@
             <div class="row py-2">
                 <div class="col">
                     <label>หน่วยซื้อ</label>
-                    <input type="text" value="<?= $data['M_unit_pack']; ?>" name="M_unit_pack" class="form-control" placeholder="ป้อนหน่วยซื้อ" autocomplete="off" required>
+                    <select name="M_unit_pack" class="form-select" id="" required>
+                        <option value="" selected hidden><?= $data['M_unit_pack']; ?></option>
+                        <option value="กิโลกรัม">กิโลกรัม</option>
+                        <option value="กรัม">กรัม</option>
+                        <option value="แผง">แผง</option>
+                        <option value="มิลลิลิตร">มิลลิลิตร</option>
+                        <option value="ลิตร">ลิตร</option>
+                    </select>
                 </div>
                 <div class="col">
                     <label>หน่วยใช้</label>
-                    <input type="text" value="<?= $data['M_unit_use']; ?>" name="M_unit_use" class="form-control" placeholder="ป้อนหน่วยใช้" autocomplete="off" required>
+                    <select name="M_unit_use" class="form-select" id="">
+                        <option value="" selected hidden><?= $data['M_unit_use']; ?></option>
+                        <option value="กรัม">กรัม</option>
+                        <option value="ฟอง">ฟอง</option>
+                        <option value="ช้อนโต๊ะ">ช้อนโต๊ะ</option>
+                        <option value="ช้อนชา">ช้อนชา</option>
+                    </select>
                 </div>
             </div> 
             

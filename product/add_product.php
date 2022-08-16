@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,9 +36,14 @@
                 <label>ราคา</label>
                 <input type="number" name="Price" class="form-control" placeholder="ป้อนราคา" required>
             </div>
+
             <div >
-                <label>หน่วยผลิต</label>
-                <input type="text" name="P_unit_pro" class="form-control" placeholder="ป้อนหน่วยผลิต" required>
+                <label for="">หน่วยผลิต</label>
+                <select name="P_unit_pro" class="form-select" id="">
+                    <option value="" selected hidden>--- เลือกหน่วยผลิต ---</option>
+                    <option value="ถาด">ถาด</option>
+                    <option value="ปอนด์">ปอนด์</option>
+                </select>
             </div>
             <div >
                 <label>จำนวนแปลงหน่วย</label>

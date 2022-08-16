@@ -49,7 +49,12 @@
             </div>
             <div >
                 <label>หน่วยผลิต</label>
-                <input type="text" name="P_unit_pro" value="<?= $data['P_unit_pro']; ?>" class="form-control" placeholder="ป้อนหน่วยผลิต" required>
+                <select name="P_unit_pro" class="form-select" id="">
+                    <option value="" selected hidden><?= $data['P_unit_pro']; ?></option>
+                    <option value="ถาด">ถาด</option>
+                    <option value="ปอนด์">ปอนด์</option>
+                </select>
+                <!-- -->
             </div>
             <div >
                 <label>จำนวนแปลงหน่วย</label>

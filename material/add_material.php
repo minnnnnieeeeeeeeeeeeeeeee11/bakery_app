@@ -9,6 +9,8 @@
     <!--Bootstap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
 </head>
 <body>
     <div class="container my-5">
@@ -28,11 +30,23 @@
             <div class="row py-2">
                 <div class="col">
                     <label>หน่วยซื้อ</label>
-                    <input type="text" name="M_unit_pack" class="form-control" placeholder="ป้อนหน่วยซื้อ" autocomplete="off" required>
+                    <select name="M_unit_pack" class="form-select" id="" required >
+                        <option value="" selected hidden>--- เลือกหน่วยซื้อ---</option >
+                        <option value="กิโลกรัม">กิโลกรัม</option>
+                        <option value="กรัม">กรัม</option>
+                        <option value="แผง">แผง</option>
+                        <option value="ลิตร">ลิตร</option>
+                    </select>
                 </div>
                 <div class="col">
-                    <label>หน่วยใช้</label>
-                    <input type="text" name="M_unit_use" class="form-control" placeholder="ป้อนหน่วยใช้" autocomplete="off" required>
+                <label>หน่วยใช้</label>
+                    <select name="M_unit_use" class="form-select" id="" required>
+                        <option value="" selected hidden>--- เลือกหน่วยใช้ ---</option>
+                        <option value="กรัม">กรัม</option>
+                        <option value="ฟอง">ฟอง</option>
+                        <option value="ช้อนโต๊ะ">ช้อนโต๊ะ</option>
+                        <option value="ช้อนชา">ช้อนชา</option>
+                    </select>
                 </div>
             </div> 
             
