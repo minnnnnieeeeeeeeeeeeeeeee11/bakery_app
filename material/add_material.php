@@ -1,3 +1,25 @@
+<?php 
+    session_start();
+    require_once "../config/config_sqli.php";
+    $query = "SELECT * FROM material ORDER BY M_ID desc limit 1";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result);
+    $lastid = $row["M_ID"];
+
+    if (empty($lastid)) 
+    {
+        $materialid = "M001";
+    } 
+    else
+    {
+        $idd = str_replace("M","",$lastid);
+        $id = str_pad($idd + 1,3,0, STR_PAD_LEFT);
+        $materialid = 'M' .$id;
+    }
+    
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +41,7 @@
             <div class="row py-2">
                 <div class="col">
                     <label>รหัสวัตถุดิบ</label>
-                    <input type="text" name="M_ID" class="form-control" placeholder="ป้อนรหัสวัตถุดิบ" required maxlength="4">
+                    <input type="text" name="M_ID" id="M_ID" class="form-control" value="<?php echo $materialid; ?>" readonly>
                 </div>
                 <div class="col">
                     <label>ชื่อวัตถุดิบ</label>

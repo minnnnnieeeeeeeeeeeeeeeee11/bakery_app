@@ -1,4 +1,23 @@
+<?php 
+    session_start();
+    require_once "../config/config_sqli.php";
+    $query = "SELECT * FROM product ORDER BY P_ID desc limit 1";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result);
+    $lastid = $row["P_ID"];
 
+    if (empty($lastid)) 
+    {
+        $productid = "P001";
+    } 
+    else
+    {
+        $idd = str_replace("P","",$lastid);
+        $id = str_pad($idd + 1,3,0, STR_PAD_LEFT);
+        $productid = 'P' .$id;
+    }
+    
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +37,7 @@
             <div class="row">
                 <div class="col">
                    <label>รหัสสินค้า</label>
-                    <input type="text" name="P_ID" class="form-control" placeholder="ป้อนรหัสสินค้า" required> 
+                    <input type="text" name="P_ID" id="P_ID" value="<?php echo $productid; ?>" class="form-control"  readonly> 
                 </div>
                 
                 <div class="col">
