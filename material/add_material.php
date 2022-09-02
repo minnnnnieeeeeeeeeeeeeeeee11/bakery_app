@@ -6,7 +6,7 @@
     $row = mysqli_fetch_array($result);
     $lastid = $row["M_ID"];
 
-    if (empty($lastid)) 
+    if (is_countable($lastid) && count($lastid) > 0)  
     {
         $materialid = "M001";
     } 
@@ -18,8 +18,6 @@
     }
     
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,11 +73,11 @@
             <div class="row py-2">
                 <div class="col">
                     <label>จำนวนแปลงหน่วย</label>
-                    <input type="number" name="M_number" class="form-control" placeholder="ป้อนค่าจำนวนแปลงหน่วย" autocomplete="off" required>
+                    <input type="number" min="0" name="M_number" class="form-control" placeholder="ป้อนค่าจำนวนแปลงหน่วย" autocomplete="off" required>
                 </div>
                 <div class="col">
                     <label>ค่า yield</label>
-                    <input type="number" name="M_Yield" class="form-control" placeholder="ป้อนค่า yield" autocomplete="off" required>
+                    <input type="number" min="0" name="M_Yield" class="form-control" placeholder="ป้อนค่า yield" autocomplete="off" required>
                 </div>
                 
             </div> 

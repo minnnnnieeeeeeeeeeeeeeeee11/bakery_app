@@ -13,12 +13,13 @@
         $M_number = $_POST['M_number'];
         $M_Yield = $_POST['M_Yield'];
         
+        
         $sql = $conn->prepare("INSERT INTO material(M_ID, M_name, M_unit_pack, M_unit_use, M_number, M_Yield) VALUES(:M_ID, :M_name, :M_unit_pack, :M_unit_use, :M_number, :M_Yield)");
         $sql->bindParam(":M_ID", $M_ID);
         $sql->bindParam(":M_name", $M_name);
         $sql->bindParam(":M_unit_pack", $M_unit_pack);
         $sql->bindParam(":M_unit_use", $M_unit_use);
-        $sql->bindParam(":M_number", $M_number);
+        $sql->bindParam (":M_number", $M_number);
         $sql->bindParam(":M_Yield", $M_Yield);
         $sql->execute();
 

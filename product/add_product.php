@@ -1,12 +1,14 @@
 <?php 
     session_start();
     require_once "../config/config_sqli.php";
-    $query = "SELECT * FROM product ORDER BY P_ID desc limit 1";
+
+    $query = "SELECT * FROM product ORDER BY P_ID DESC limit 1";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_array($result);
-    $lastid = $row["P_ID"];
-
-    if (empty($lastid)) 
+    $lastid = $row["P_ID"]; 
+    /* $lastid = is_array($P_ID) ? count($P_ID) : 0 ; */
+    
+    if (is_countable($lastid) && count($lastid) > 0) 
     {
         $productid = "P001";
     } 
@@ -16,6 +18,7 @@
         $id = str_pad($idd + 1,3,0, STR_PAD_LEFT);
         $productid = 'P' .$id;
     }
+    
     
 ?>
 
@@ -45,7 +48,7 @@
                     <input type="text" name="P_name" class="form-control" placeholder="ป้อนชื่อสินค้า" required>
                 </div>
             </div>
-            
+
             <div>
                 <label>รูปภาพ</label>
                 <input type="file" name="P_image" class="form-control" id="imgInput" required>

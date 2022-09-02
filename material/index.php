@@ -24,7 +24,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>material</title>
+    <title>ข้อมูลวัตถุดิบ</title>
     <!--Bootstap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -38,9 +38,9 @@
         <hr>
         <a href="add_material.php" class="btn btn-success mb-4"><i class="bi bi-plus-circle-fill"></i> เพิ่มวัตถุดิบ</a>
         <a href="restore_material.php" class="btn btn-outline-info mb-4"><i class="bi bi-trash3"></i> คืนค่าข้อมูล</a>
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover table-bordered">
             <thead>
-                <tr>
+                <tr align="center">
                     <th scope="col">ลำดับ</th>
                     <th scope="col">รหัสวัตถุดิบ</th>
                     <th scope="col">ชื่อวัตถุดิบ</th>
@@ -62,13 +62,13 @@
                     } else {
                     foreach($material as $material)  {  
                 ?>
-                <tr>
+                <tr align="center">
                     <td><?php echo $material['id']; ?></td>
                     <td><?php echo $material['M_ID']; ?></td>
                     <td><?php echo $material['M_name']; ?></td>
                     <td><?php echo $material['M_unit_pack']; ?></td>
                     <td><?php echo $material['M_unit_use']; ?></td>
-                    <td><?php echo $material['M_number']; ?></td>
+                    <td align="right"><?php echo number_format($material['M_number'], 2); ?></td>
                     <td>
                         <a href="edit.php?id=<?php echo $material['id']; ?>" class="btn btn-warning">แก้ไข</a>
                         <a data-id="<?php echo $material['id']; ?>" href=" ?delete=<?php echo $material['id']; ?>"

@@ -23,7 +23,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>product</title>
+    <title>สินค้า</title>
     <!--Bootstap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -89,6 +89,7 @@
                         <a href="edit.php?id=<?php echo $product['id']; ?>" class="btn btn-warning">แก้ไข</a>
                         <a data-id="<?php echo $product['id']; ?>" href=" ?delete=<?php echo $product['id']; ?>"
                         class="btn btn-danger delete-btn">ลบ</a>
+                        <a href="ingredient.php?id=<?php echo $product['id']; ?>" class="btn btn-success"><i class="bi bi-plus-circle-fill"></i> สูตร</a>
                     </td>
                 </tr>
                 <?php } 
