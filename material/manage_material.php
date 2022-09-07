@@ -1,3 +1,8 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +18,7 @@
 
 <body>
     <div class="container">
-        <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">จัดการข้อมูลวัตถุดิบ</div>
+        <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">ข้อมูลวัตถุดิบที่ต้องสั่งซื้อ</div>
         <hr>
         <table class="table table-striped table-hover table-bordered">
             <thead>
@@ -23,7 +28,7 @@
                     <th scope="col">จำนวนคงเหลือ</th>
                     <th scope="col">หน่วยใช้</th>
                     <th scope="col">จุดสั่งซื้อ</th>
-                    <th scope="col">จัดการ</th>
+                    <th scope="col">สถานะ</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,9 +52,9 @@
                     <td>
                         <?php
                                    if($material['M_balane'] <= $material['M_point']) {
-                                        echo '<button type="submit" name="submit" class="btn btn-danger ">สั่งซื้อ</button>';
+                                        echo "<font color='red'>สั่งซื้อ</font>";
                                    } else {
-                                        echo '-';
+                                        echo "<font color='blue'>ปกติ</font>";
                                    }
                                ?>
                     </td>

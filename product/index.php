@@ -3,18 +3,18 @@
 
 <?php
     session_start();
-    require_once "../config/configpdo.php";
+    require_once "../config/config_sqli.php";
 
     if (isset($_GET['delete'])) {
         $delete_id = $_GET['delete'];
-        $stmt = $conn -> query("UPDATE product set P_status='0' WHERE id = $delete_id");
-        $stmt -> execute();
+        $stmt1 = "UPDATE product set P_status='0' WHERE id = $delete_id";
+        $stmt1 = mysqli_query($conn, $stmt1);
 
-        if ($stmt) {
+        if ($stmt1 ) {
             $_SESSION['success'] = "ลบข้อมูลเรียบร้อยแล้ว";
             header("refresh:2; url=../material/index.php");
         } 
-  }
+  } 
 ?>
 
 <!DOCTYPE html>
@@ -28,49 +28,45 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <style>
+        body{
+            font-family: Bai Jamjuree;
+        }
+    </style>
 </head>
 <body>
-   
+<?php
+        if(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert"> ข้อมูลสินค้า</div>
         <hr>
         <a href="add_product.php" class="btn btn-success mb-4"><i class="bi bi-plus-circle-fill"></i> เพิ่มสินค้า</a>
         <a href="restore_product.php" class="btn btn-outline-info mb-4"><i class="bi bi-trash3"></i> คืนค่าข้อมูล</a>
-        <?php if (isset($_SESSION['success'])) { ?>
-            <div class="alert alert-success">
-                <?php 
-                    echo $_SESSION['success']; 
-                    unset($_SESSION['success']);
-                ?>
-            </div>
-        <?php } ?>
-        <?php if (isset($_SESSION['error'])) { ?>
-            <div class="alert alert-danger">
-                <?php 
-                    echo $_SESSION['error']; 
-                    unset($_SESSION['error']);
-                ?>
-            </div>
-        <?php } ?>
-
+    
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+
                     <th scope="col">รหัสสินค้า</th>
                     <th scope="col">ชื่อสินค้า</th>
                     <th scope="col">รูปภาพ</th>
                     <th scope="col">ราคา</th>
                     <th scope="col">หน่วยผลิต</th>
-                    <th scope="col">จำนวนแปลงหน่วย</th>
+                    <th scope="col">จำนวนต่อหน่วย</th>
                     <th scope="col">จัดการ</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                    $stmt = $conn -> query("SELECT * FROM product WHERE P_status='1' ");
+                        $stmt = "SELECT * FROM product WHERE P_status='1'" ;
+                        $product=mysqli_query($conn,$stmt);
+                    /* $stmt = $conn -> query("SELECT * FROM product WHERE P_status='1' ");
                     $stmt -> execute();
-                    $product = $stmt -> fetchAll();
+                    $product = $stmt -> fetchAll(); */
 
                     if (!$product) {
                         echo "<p><td colspan='8' class='text-center'>ไม่มีข้อมูล</td></p>";
@@ -78,7 +74,6 @@
                     foreach($product as $product)  {  
                 ?>
                 <tr>
-                    <td><?php echo $product['id']; ?></td>
                     <td><?php echo $product['P_ID']; ?></td>
                     <td><?php echo $product['P_name']; ?></td>
                     <td width="250px"><img height="60" src="../uploads/<?= $product['P_image']; ?>" class="rounded" alt=""></td>
@@ -89,8 +84,26 @@
                         <a href="edit.php?id=<?php echo $product['id']; ?>" class="btn btn-warning">แก้ไข</a>
                         <a data-id="<?php echo $product['id']; ?>" href=" ?delete=<?php echo $product['id']; ?>"
                         class="btn btn-danger delete-btn">ลบ</a>
-                        <a href="ingredient.php?id=<?php echo $product['id']; ?>" class="btn btn-success"><i class="bi bi-plus-circle-fill"></i> สูตร</a>
+                        
+                        <?php 
+                        
+                            $P_ID = "";
+                            $stmt2 = "SELECT * FROM ing WHERE P_ID = '".$product['id']."'";
+
+                            $q = mysqli_query($conn, $stmt2);
+                            $followingdata = $q->fetch_assoc();
+                            
+                            if(mysqli_num_rows($q) >0){
+                                if ($product['id'] == $followingdata['P_ID']) {
+                                    echo '<button type="submit" name="submit" class="btn btn-success ">ดูสูตร</button>';
+                                } 
+                            }else{
+                                echo "<a href='ingredient.php?id=".$product['id']."' class='btn btn-primary'><i class='bi bi-plus-circle-fill'></i> เพิ่มสูตร</a>";
+                            }
+                        ?>
                     </td>
+                   
+                    
                 </tr>
                 <?php } 
                 } ?>

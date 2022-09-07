@@ -42,6 +42,7 @@
                     $sql = "SELECT * FROM production_order" ; 
                     $in_order=mysqli_query($conn,$sql);
 
+                
                     if (!$in_order) {
                         echo "<p><td colspan='8' class='text-center'>ไม่มีข้อมูล</td></p>";
                     } else {

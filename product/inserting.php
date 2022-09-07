@@ -7,7 +7,9 @@ session_start();
 require_once '../config/config_sqli.php';
 
 if(isset($_POST['save_order']))
+
 {
+    $id = $_POST['id'];
     $inglist = $_POST['inglist'];
     $ing_num = $_POST['ing_num'];
     $ing_use = $_POST['ing_use'];
@@ -27,39 +29,36 @@ if(isset($_POST['save_order']))
                 $query = "INSERT INTO ing (M_ID,ing_num,ing_use,P_ID,P_quantity) VALUES ('$inglist','$ing_num','$ing_use','$P_ID','$P_quantity')";
                 $query_run = mysqli_query($conn, $query);
                 }
-            
+
                 if ($query_run) {
-                    $_SESSION['success'] = "เพิ่มข้อมูลเรียบร้อยแล้ว";
-                    echo "<script>
-                        $(document).ready(function () {
-                            Swal.fire ({
-                                icon: 'success',
-                                title: 'สำเร็จ',
-                                text: 'เพิ่มข้อมูลเรียบร้อยแล้ว',
-                                timer: 2000,
-                                showConfirmButton: true
-                            });
-                        });
-                    </script>";
-                    header("refresh:2; url=../product/index.php");
+                    $_SESSION['success'] = '<script>
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "เพิ่มข้อมูลเรียบร้อยแล้ว",
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                    </script>';
+                        
+                    header("location: ../product/index.php");
                 } else {
-                    $_SESSION['error'] = "เพิ่มข้อมูลไม่สำเร็จ";
-                    echo "<script>
-                        $(document).ready(function () {
-                            Swal.fire ({
-                                icon: error',
-                                title: 'เกิดข้อผิดพลาด',
-                                text: 'เพิ่มข้อมูลไม่สำเร็จ',
-                                timer: 2000,
-                                showConfirmButton: true
-                            });
-                        });
-                    </script>";
-                    header("refresh:2; url=../product/index.php");
+                    $_SESSION['success'] = '<script>
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "เพิ่มข้อมูลไม่สำเร็จ",
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                    </script>';
+                    
+                    header("location: ../product/index.php");
                 }
         }
             
            
 
 }
+
 ?>

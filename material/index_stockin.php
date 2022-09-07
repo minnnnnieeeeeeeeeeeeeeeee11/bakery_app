@@ -21,9 +21,20 @@
             font-family: Bai Jamjuree;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
+<?php
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container">
 
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">ข้อมูลวัตถุดิบที่รับเข้า</div>
@@ -38,6 +49,7 @@
                     <th scope="col">ชื่อวัตถุดิบ</th>
                     <th scope="col">จำนวนที่รับเข้า</th>
                     <th scope="col">หน่วยซื้อ</th>
+                    <th scope="col">คงเหลือ</th>
                     <th scope="col">ต้นทุนที่รับเข้า</th>
                 </tr>
             </thead>
@@ -76,6 +88,7 @@
                     <td><?php echo $stockin['M_name']; ?></td>
                     <td><?php echo $stockin['S_in']; ?></td>
                     <td><?php echo $stockin['S_unit_pack']; ?></td>
+                    <td><?php echo number_format($stockin['S_balance']); ?></td>
                     <td align="right"><?php echo number_format($stockin['S_cost'], 2); ?></td>
                 </tr>
                 <?php } 

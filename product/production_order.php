@@ -1,6 +1,5 @@
-<?php
-session_start();
-?>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +25,8 @@ session_start();
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
         integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!--datepicker js-->
 
+    <!--datepicker js-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -42,14 +41,16 @@ session_start();
         }
         </style>
 
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- 
+
 </head>
 
 <body>
     <?php
-        if(isset($_SESSION['success'])){
+        session_start();
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
             echo $_SESSION['success'];
             unset($_SESSION['success']);
         }
@@ -90,11 +91,11 @@ session_start();
                     {
                         ?>
                     <tr align="center">
-                    <td><input type="checkbox"  name="" value="<?= $product['id']; ?>" /> <?= $product['P_ID']; ?></td>
-                    <td><input type="hidden" name="pro_name[]" value="<?= $product['id']; ?>" /> <?= $product['P_name']; ?></td>
-                            <td width='10%'><input type="number" name="pro_num[]" class="form-control" min="0" ></td>
-                            <input type="hidden" name="prolist[]"  value="<?= $product['id']; ?>" />
-                            <td><input type="hidden" name="pro_use[]" value="<?= $product['id']; ?>" /> <?= $product['P_unit_pro']; ?></td>
+                        <td><input type="checkbox"  name="" value="<?= $product['id']; ?>" /> <?= $product['P_ID']; ?></td>
+                        <td><input type="hidden" name="pro_name[]" value="<?= $product['id']; ?>" /> <?= $product['P_name']; ?></td>
+                        <td width='10%'><input type="number" name="pro_num[]" class="form-control" min="1" ></td>
+                        <input type="hidden" name="prolist[]"  value="<?= $product['id']; ?>" />
+                        <td><input type="hidden" name="pro_use[]" value="<?= $product['id']; ?>" /> <?= $product['P_unit_pro']; ?></td>
                     </tr>
 
                     <?php

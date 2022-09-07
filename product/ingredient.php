@@ -1,3 +1,6 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +21,16 @@
 </head>
 
 <body>
+<?php
+        session_start();
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert"> เพิ่มสูตรการผลิต</div>
         <hr>

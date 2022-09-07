@@ -42,9 +42,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
+<?php
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">ตัดสต็อกวัตถุดิบ</div>
         <form action="insert_cutstock.php" method="post" enctype="multipart/form-data">
@@ -62,7 +73,7 @@
 
                             while($rows = mysqli_fetch_array($result)){
                             ?>
-                        <option value="<?=$rows['id'];?>"><?=$rows['M_name'];?></option>
+                        <option value="<?=$rows['id'];?>" ><?=$rows['M_name'];?></option>
                         <?php
                             }
                             mysqli_close($conn); //ปิดการเชื่อมต่อฐานข้อมูล
@@ -78,7 +89,7 @@
 
                 <div class="col">
                     <label>จำนวนที่ต้องการตัด</label>
-                    <input type="number" min="0" name="M_balane" class="form-control" placeholder="ป้อนค่าจำนวน"
+                    <input type="number" min="1" name="M_num" class="form-control" placeholder="ป้อนค่าจำนวน"
                         required>
                 </div>
             </div>
