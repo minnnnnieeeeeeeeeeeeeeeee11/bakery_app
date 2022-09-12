@@ -2,8 +2,7 @@
     ini_set('display_errors',1);
     session_start();
     require_once '../config/config_sqli.php';
-    $sql = "SELECT * FROM material" ;
-    $result=mysqli_query($conn,$sql);
+    
 ?>
 
 <!DOCTYPE html>
@@ -27,37 +26,61 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
+<?php
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">จุดสั่งซื้อวัตถุดิบ</div>
         <form action="insert_orderpoint.php" method="post" enctype="multipart/form-data">
-            
+
             <div class="row">
                 <div class="col">
                     <label>รหัสวัตถุดิบ</label>
-                    <input readonly type="text" name="M_ID" id="M_ID" class="form-control" >
-                
+                    <input readonly type="text" name="M_ID" id="M_ID" class="form-control">
+
                 </div>
-                <div class="col ">
+                <div class="col">
                     <label>ชื่อวัตถุดิบ</label>
 
                     <select name="M_name" id="orderpoint_name" class="form-select" onchange="fetchemp2()">
                         <option value="" selected hidden>----เลือก----</option>
                         <?php 
+                                $sql = "SELECT * FROM material" ;
+                                $result=mysqli_query($conn,$sql);
 
-                            while($rows = mysqli_fetch_array($result)){
+                                while($rows = mysqli_fetch_array($result)){
+                                
+                                $m_name ="";
+                                $show_mat  = "SELECT * FROM orderpoint  WHERE M_name = '".$rows['id']."' ORDER BY id ASC";
+                                $query_mat = mysqli_query($conn, $show_mat);
+
+                                while($row1=mysqli_fetch_array($query_mat)) {
+                                    $m_name = $row1['M_name'];
+                                } 
+                                
+                                if($m_name !== $rows['id']){
+                                ?>
+                                    <option value="<?=$rows['id'];?>"><?=$rows['M_name'];?></option>
+                                <?php
+                                }}
+
                             ?>
-                        <option value="<?=$rows['id'];?>"><?=$rows['M_name'];?></option>
-                        <?php
-                            }
-                            mysqli_close($conn); //ปิดการเชื่อมต่อฐานข้อมูล
-                        ?>
                     </select>
+                    
                 </div>
             </div>
-            
+
             <label>D</label>
             <div class="input-group">
                 <input type="number" name="D" class="form-control" placeholder="ป้อนอัตราความต้องการสินค้าคงคลัง"

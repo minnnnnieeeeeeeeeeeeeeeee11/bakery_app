@@ -52,7 +52,7 @@
             <div>
                 <label>รูปภาพ</label>
                 <input type="file" name="P_image" class="form-control" id="imgInput" required>
-                <img id="previewImg" alt=""  width="390px" >
+                <img id="previewImg" alt=""  width="10px" height="10px" >
             </div>
             <div >
                 <label>ราคา</label>

@@ -35,33 +35,29 @@
             $sql2 = $conn->prepare("UPDATE material SET M_point = $totaldlt WHERE id = $M_name");
         
             if ($sql && $sql2->execute()) {
-                $_SESSION['success'] = "เพิ่มข้อมูลเรียบร้อยแล้ว";
-                echo "<script>
-                    $(document).ready(function () {
-                        Swal.fire ({
-                            icon: 'success',
-                            title: 'สำเร็จ',
-                            text: 'เพิ่มข้อมูลเรียบร้อยแล้ว',
-                            timer: 2000,
-                            showConfirmButton: true
-                        });
-                    });
-                </script>";
-                header("refresh:2; url=../material/orderpoint.php");
+                $_SESSION['success'] = '<script>
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "เพิ่มข้อมูลเรียบร้อยแล้ว",
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                </script>';
+                
+                header("location: ../material/orderpoint.php");
             } else {
-                $_SESSION['error'] = "เพิ่มข้อมูลไม่สำเร็จ";
-                echo "<script>
-                    $(document).ready(function () {
-                        Swal.fire ({
-                            icon: error',
-                            title: 'เกิดข้อผิดพลาด',
-                            text: 'เพิ่มข้อมูลไม่สำเร็จ',
-                            timer: 2000,
-                            showConfirmButton: true
-                        });
-                    });
-                </script>";
-                header("refresh:2; url=../material/orderpoint.php");
+                $_SESSION['success'] = '<script>
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "เพิ่มข้อมูลไม่สำเร็จ",
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                </script>';
+                
+                header("location: ../material/orderpoint.php");
             }
         }
 

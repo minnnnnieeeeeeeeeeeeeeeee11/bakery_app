@@ -64,7 +64,7 @@
                 <div class="row">
                     <div class="col">
                         <label>รหัสวัตถุดิบ</label>
-                        <input readonly type="text" name="M_ID" id="M_ID" class="form-control" required>
+                        <input readonly type="text" name="M_ID" id="M_ID" class="form-control">
                     </div>
 
                     <div class="col ">

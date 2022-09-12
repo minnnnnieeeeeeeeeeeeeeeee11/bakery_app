@@ -41,19 +41,17 @@
         $sql->execute();
 
         if ($sql) {
-            $_SESSION['success'] = "แก้ไขข้อมูลเรียบร้อยแล้ว";
-            echo "<script>
-                $(document).ready(function () {
-                    Swal.fire ({
-                        icon: 'success',
-                        title: 'สำเร็จ',
-                        text: 'แก้ไขข้อมูลเรียบร้อยแล้ว',
-                        timer: 2000,
-                        showConfirmButton: true
-                    });
-                });
-            </script>";
-            header("refresh:2; url=../product/index.php");
+            $_SESSION['success'] = '<script>
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "แก้ไขข้อมูลเรียบร้อยแล้ว",
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                        </script>';
+                        
+                        header("location: ../product/index.php");
         } else {
             $_SESSION['error'] = "แก้ไขข้อมูลไม่สำเร็จ";
             echo "<script>

@@ -35,12 +35,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&family=Itim&family=Mali:wght@300&display=swap"
         rel="stylesheet">
-        <style>
-        body {
-            font-family: Bai Jamjuree;
-        }
-        </style>
-
+    <style>
+    body {
+        font-family: Bai Jamjuree;
+    }
+    </style>
 
 </head>
 
@@ -71,38 +70,58 @@
             <table class="table table-striped table-hover table-bordered mt-2">
                 <thead>
                     <tr align="center">
-                    <th scope="col" style="width: 200px;">รหัสสินค้า</th>
-                    <th scope="col" style="width: 200px;">ชื่อสินค้า</th>
-                    <th scope="col" style="width: 200px;">จำนวน</th>
-                    <th scope="col" >หน่วยผลิต</th>
-                        
+                        <th scope="col" style="width: 200px;">รหัสสินค้า</th>
+                        <th scope="col" style="width: 200px;">ชื่อสินค้า</th>
+                        <th scope="col" style="width: 200px;">จำนวน</th>
+                        <th scope="col">หน่วยผลิต</th>
+
                     </tr>
                 </thead>
-
                 <tbody>
-
                     <?php
-                require_once '../config/config_sqli.php';
-                $sql = "SELECT * FROM product" ;
-                $result=mysqli_query($conn,$sql);
-                if(mysqli_num_rows($result) > 0)
-                {
+                    require_once '../config/config_sqli.php';
+
+                    $sql = "SELECT * FROM product" ;
+                    $result=mysqli_query($conn,$sql);
+
+                    $show_ing2 = "SELECT * FROM ing";
+                        $query_run2 = mysqli_query($conn, $show_ing2);
+                        $num_row = mysqli_num_rows($query_run2);
+
                     foreach($result as $key => $product)
                     {
+                        $p_id ="";
+                        $show_ing  = "SELECT * FROM ing  WHERE P_ID = '".$product['id']."' ORDER BY id ASC";
+                        $query_run1 = mysqli_query($conn, $show_ing);
+                        
+                        while($row1=mysqli_fetch_array($query_run1)) {
+                            $p_id = $row1['P_ID'];
+                        } 
+                        
+                        if($p_id === $product['id']){
+                            
                         ?>
                     <tr align="center">
-                        <td><input type="checkbox"  name="" value="<?= $product['id']; ?>" /> <?= $product['P_ID']; ?></td>
-                        <td><input type="hidden" name="pro_name[]" value="<?= $product['id']; ?>" /> <?= $product['P_name']; ?></td>
-                        <td width='10%'><input type="number" name="pro_num[]" class="form-control" min="1" ></td>
-                        <input type="hidden" name="prolist[]"  value="<?= $product['id']; ?>" />
-                        <td><input type="hidden" name="pro_use[]" value="<?= $product['id']; ?>" /> <?= $product['P_unit_pro']; ?></td>
+                        <td><input type="checkbox" name="" value="<?= $product['id']; ?>" /> <?= $product['P_ID']; ?>
+                        </td>
+                        <td><input type="hidden" name="pro_name[]" value="<?= $product['id']; ?>" />
+                            <?= $product['P_name']; ?></td>
+                        <td width='10%'><input type="number" name="pro_num[]" class="form-control" min="1"></td>
+                        <input type="hidden" name="prolist[]" value="<?= $product['id']; ?>" />
+                        <td><input type="hidden" name="pro_use[]" value="<?= $product['id']; ?>" />
+                            <?= $product['P_unit_pro']; ?></td>
                     </tr>
 
                     <?php
+                            
+                        }
+                        
                     } 
+                    if($num_row == 0){
+                        echo "<p><td colspan='8' class='text-center'>ไม่มีข้อมูล</td></p>";
+                    }
                     
-                } else{echo "ไม่มีข้อมูล";}
-            ?>
+                    ?>
                 </tbody>
 
             </table>

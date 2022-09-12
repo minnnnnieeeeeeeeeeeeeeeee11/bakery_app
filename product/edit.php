@@ -41,7 +41,7 @@
             <div>
                 <label>รูปภาพ</label>
                 <input type="file" name="P_image" class="form-control" id="imgInput" >
-                <img src="../uploads/<?= $data['P_image']; ?>" id="previewImg" alt=""  width="390px" >
+                <img src="../uploads/<?= $data['P_image']; ?>" id="previewImg" alt=""  width="120px" height="120px"  >
             </div>
             <div >
                 <label>ราคา</label>
