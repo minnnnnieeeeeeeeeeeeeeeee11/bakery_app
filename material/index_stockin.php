@@ -1,5 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php 
     session_start();
@@ -62,8 +62,7 @@
             <tbody>
                 <?php 
                 
-            
-            
+        
                 $stmt = "SELECT stockin.*,material.M_name FROM stockin INNER JOIN material ON stockin.M_ID = material.M_ID ORDER BY stockin.id ASC ";                
                 $stockin = $conn->query($stmt);
                     if (!$stockin) {

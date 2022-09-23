@@ -1,5 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php
     session_start();
@@ -50,6 +50,16 @@
 
 <body>
 
+<?php
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
+
     <div class="container">
         <div class=" h4 text-center alert alert-info mb-4 mt-2" role="alert"> ข้อมูลวัตถุดิบ</div>
         <hr>
@@ -77,7 +87,7 @@
                     foreach($material as $material)  {  
                 ?>
                 <tr align="center">
-                    <td><?php echo $material['M_ID']; ?></td>
+                    <td ><?php echo $material['M_ID']; ?></td>
                     <td><?php echo $material['M_name']; ?></td>
                     <td><?php echo $material['M_unit_pack']; ?></td>
                     <td><?php echo $material['M_unit_use']; ?></td>

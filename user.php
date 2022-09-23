@@ -1,4 +1,8 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <?php
+session_start();
 include 'config/config_sqli.php';
 ?>
 
@@ -15,6 +19,15 @@ include 'config/config_sqli.php';
 
 </head>
 <body>
+<?php
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert"> ข้อมูลผู้ใช้ (พนักงาน)</div>
         <a href="adduser.php" class="btn btn-success mb-4">เพิ่มผู้ใช้</a>

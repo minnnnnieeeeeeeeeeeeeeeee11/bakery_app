@@ -1,3 +1,7 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <?php 
     session_start();
     require_once "../config/config_sqli.php";
@@ -34,6 +38,15 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+<?php
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container my-5">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">เพิ่มข้อมูลสินค้า</div>
         <form action="insert_product.php" method="POST" enctype="multipart/form-data" >
@@ -52,7 +65,7 @@
             <div>
                 <label>รูปภาพ</label>
                 <input type="file" name="P_image" class="form-control" id="imgInput" required>
-                <img id="previewImg" alt=""  width="10px" height="10px" >
+                <img id="previewImg" alt=""  width="120px" height="120px" >
             </div>
             <div >
                 <label>ราคา</label>

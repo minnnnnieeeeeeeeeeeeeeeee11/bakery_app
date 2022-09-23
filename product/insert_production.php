@@ -16,7 +16,7 @@ if(isset($_POST['save_order']))
     $Pro_date = $_POST['Pro_date'];
     
         for ($x=0 ; $x<count($_REQUEST['prolist']) ; $x++) {
-            if (isset($prolist)) {
+            /* if (isset($prolist)) { */
                 $prolist = $_REQUEST['prolist'][$x];
                 $pro_name = $_REQUEST['pro_name'][$x];
                 $pro_num = $_REQUEST['pro_num'][$x];
@@ -30,6 +30,12 @@ if(isset($_POST['save_order']))
                             $m_id = $row1['M_ID'];
                             $p_id = $row1['P_ID'];
                             $ing_num = $row1['ing_num']; 
+
+                            $select = $conn->query("SELECT * FROM material WHERE id = $m_id");
+                            while($row_select = $select->fetch_array()){
+                                $m_sale += $row_select['M_sale']*$ing_num*$pro_num;
+                            }
+                            
                             
                             if($p_id === $prolist){
                                 $up_m = $conn->prepare("UPDATE material SET U_balance = U_balance - '$ing_num'*'$pro_num' WHERE id = '$m_id'");
@@ -59,7 +65,8 @@ if(isset($_POST['save_order']))
                             }
                         }
                         if($p_id === $prolist){
-                            $query = "INSERT INTO production_order (P_ID,P_name,Pro_amount,P_use,Pro_date) VALUES ('$prolist','$pro_name','$pro_num','$pro_use','$Pro_date')";
+                            
+                            $query = "INSERT INTO production_order (P_ID,P_name,Pro_amount,P_use,Pro_date,Pro_cost) VALUES ('$prolist','$pro_name','$pro_num','$pro_use','$Pro_date','$m_sale')";
                             $query_run = mysqli_query($conn, $query);
                             
                             if ($query_run) {
@@ -73,7 +80,7 @@ if(isset($_POST['save_order']))
                                 })
                                 </script>';
                             
-                                header("location: ../product/production_order.php");
+                                header("location: ../product/index_production.php");
                             } else {
                                 $_SESSION['success'] = '<script>
                                 Swal.fire({
@@ -85,7 +92,7 @@ if(isset($_POST['save_order']))
                                 })
                             </script>';
                                 
-                                header("location: ../product/production_order.php");
+                                header("location: ../product/index_production.php");
                             }
                         }
                         if($p_id !== $prolist){
@@ -102,9 +109,22 @@ if(isset($_POST['save_order']))
                             header("location: ../product/production_order.php");
                         }
                         
+                        
+                    }else{
+                        $_SESSION['success'] = '<script>
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "สั่งผลิตไม่สำเร็จ",
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                    </script>';
+                    
+                    header("location: index_production.php");
                     }
                 }
-        }
+       /*  } */
     
         
     

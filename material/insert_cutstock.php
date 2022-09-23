@@ -33,7 +33,7 @@
                 $total_sb = $M_num - $S_balance;
                 $up_si = $conn->prepare("UPDATE stockin SET S_balance = 0 WHERE id = '".$row_cut['id']."'");
                 if($up_si->execute()) {
-                    $s_cutstock2 = $conn->query("SELECT * FROM stockin WHERE S_balance != 0 AND M_name = $M_name ORDER BY id ASC LIMIT 1");
+                    $s_cutstock2 = $conn->query("SELECT * FROM stockin WHERE S_balance != 0 AND M_name = $M_name ORDER BY id ASC LIMIT 3");
                     $row_s_cutstock2 = $s_cutstock2->fetch_array();
 
                     $s_cutstock3 = $conn->prepare("UPDATE stockin SET S_balance = S_balance - $total_sb WHERE id = '".$row_s_cutstock2['id']."'");

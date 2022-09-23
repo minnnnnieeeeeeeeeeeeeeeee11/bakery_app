@@ -89,9 +89,7 @@
                 <?php 
                         $stmt = "SELECT * FROM product WHERE P_status='1'" ;
                         $product=mysqli_query($conn,$stmt);
-                    /* $stmt = $conn -> query("SELECT * FROM product WHERE P_status='1' ");
-                    $stmt -> execute();
-                    $product = $stmt -> fetchAll(); */
+
 
                     if (!$product) {
                         echo "<p><td colspan='8' class='text-center'>ไม่มีข้อมูล</td></p>";
@@ -132,7 +130,6 @@
                                                 <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                                             </div>
                                             <div class='modal-body'>
-                                            
                                                 <div class='row'>
                                                     <div class='col'>
                                                         <h4>".$followingdata['P_ID']."</h4>
@@ -172,6 +169,7 @@
 
         
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

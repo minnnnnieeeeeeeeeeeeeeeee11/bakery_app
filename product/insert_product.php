@@ -1,5 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php
     session_start();
@@ -25,19 +25,18 @@
             $row = $check_name -> fetch(PDO::FETCH_ASSOC);
             if ($check_name -> rowCount() > 0) {
                 if ($P_name == $row['P_name']) {
-                    $_SESSION['error'] = "มีข้อมูล <b>".$P_name."</b> อยู่แล้ว ไม่สามารถเพิ่มข้อมูลซ้ำได้";
-                        echo "<script>
-                            $(document).ready(function () {
-                                Swal.fire ({
-                                    icon: 'error',
-                                    title: 'ผิดพลาด',
-                                    text: 'มีข้อมูล $P_name อยู่แล้ว กรุณาเพิ่มข้อมูลอื่น',
-                                    timer: 2000,
-                                    showConfirmButton: true
-                                });
-                            });
-                        </script>";
-                        header("refresh:2; url=index.php");
+                    $_SESSION['success'] = '<script>
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "มีข้อมูล '.$P_name.' อยู่แล้ว กรุณาเพิ่มข้อมูลอื่น",
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                </script>';
+                
+                header("location: ../product/add_product.php");
+
                 }
             } elseif (in_array($fileActExt, $allow)) {
                 if ($P_image['size'] > 0 && $P_image['error'] == 0){
@@ -53,30 +52,28 @@
 
                         if ($sql) {
                             $_SESSION['success'] = '<script>
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "เพิ่มข้อมูลเรียบร้อยแล้ว",
-                            showConfirmButton: false,
-                            timer: 1500
-                          })
-                        </script>';
-                        
-                        header("location: ../product/index.php");
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "เพิ่มข้อมูลเรียบร้อยแล้ว",
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                </script>';
+                
+                header("location: ../product/index.php");
                         } else {
-                            $_SESSION['error'] = "เพิ่มข้อมูลไม่สำเร็จ";
-                            echo "<script>
-                                $(document).ready(function () {
-                                    Swal.fire ({
-                                        icon: error',
-                                        title: 'เกิดข้อผิดพลาด',
-                                        text: 'เพิ่มข้อมูลไม่สำเร็จ',
-                                        timer: 2000,
-                                        showConfirmButton: true
-                                    });
-                                });
-                            </script>";
-                            header("refresh:2; url=../product/index.php");
+                            $_SESSION['success'] = '<script>
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "เพิ่มข้อมูลไม่สำเร็จ",
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                </script>';
+                
+                header("location: ../product/index.php");
                         }
                     }
                 }

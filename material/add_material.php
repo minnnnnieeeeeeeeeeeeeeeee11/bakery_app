@@ -1,3 +1,6 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <?php 
     session_start();
     require_once "../config/config_sqli.php";
@@ -33,6 +36,15 @@
 
 </head>
 <body>
+<?php
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container my-5">
         <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">เพิ่มข้อมูลวัตถุดิบ</div>
         <form action="insert_material.php" method="post" enctype="multipart/form-data" >

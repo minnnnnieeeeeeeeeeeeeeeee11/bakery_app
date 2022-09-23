@@ -14,7 +14,8 @@
         integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
     body {
         font-family: Bai Jamjuree;
@@ -23,6 +24,16 @@
 </head>
 
 <body>
+<?php
+        session_start();
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+        }elseif(isset($_SESSION['success'])){
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+        }
+    ?>
     <div class="container">
         <div class=" h4 text-center alert alert-info mb-4 mt-2" role="alert">รายการสินค้าที่สั่งผลิต</div>
         <hr>
@@ -37,11 +48,12 @@
                     <th scope="col">ชื่อสินค้า</th>
                     <th scope="col">จำนวนที่ผลิต</th>
                     <th scope="col">หน่วยผลิต</th>
+                    <th scope="col">ต้นทุนในการผลิต</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                  session_start();
+                  
                   require_once "../config/config_sqli.php";
                   
                   $sql = "SELECT * FROM production_order JOIN product ON production_order.P_ID = product.id" ;   
@@ -59,6 +71,7 @@
                     <td><?php echo $in_order['P_name']; ?></td>
                     <td><?php echo $in_order['Pro_amount']; ?></td>
                     <td><?php echo $in_order['P_unit_pro']; ?></td>
+                    <td><?php echo number_format($in_order['Pro_cost'],2); ?></td>
                 </tr>
                 <?php } 
                 } ?>

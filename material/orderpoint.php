@@ -41,7 +41,7 @@
         }
     ?>
     <div class="container">
-        <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">จุดสั่งซื้อวัตถุดิบ</div>
+        <div class=" h4 text-center alert alert-info mb-4 mt-4" role="alert">เพิ่มจุดสั่งซื้อวัตถุดิบ</div>
         <form action="insert_orderpoint.php" method="post" enctype="multipart/form-data">
 
             <div class="row">
@@ -96,7 +96,7 @@
 
             </div>
             <button type="submit" name="submit" class="btn btn-success my-3">บันทึก</button>
-            <a href="#" class="btn btn-danger">กลับ</a>
+            <a href="index_orderpoint.php" class="btn btn-danger">กลับ</a>
         </form>
     </div>
 
